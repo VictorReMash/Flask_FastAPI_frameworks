@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} - Интернет-магазин</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1em 0;
+            text-align: center;
+            cursor: pointer; /* Добавляем указатель при наведении */
+        }
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+        nav {
+            background-color: #333;
+            overflow: hidden;
+            text-align: right; /* Выравнивание текста в меню по правому краю */
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: inline; /* Делаем меню в одну строку */
+        }
+        nav li {
+            display: inline-block; /* Делаем пункты меню блочно-строчными элементами */
+            margin-left: 20px; /* Отступ между пунктами меню */
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 16px;
+            display: inline-block; /* Делаем ссылки блочно-строчными элементами */
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        main {
+            padding: 20px;
+        }
+    .main-image {
+        width: 100%;
+    }
+    .main-image img {
+    display: block;
+        width: 100%;
+    }
+    .product-list {
+    width: 100%;
+        display: flex;
+        flex-flow: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+    }
+    .product-item {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        width: 24%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    .product-item img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Интернет-магазин</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Главная</a></li>
+            <li><a href="{{ url_for('clothing') }}">Одежда</a></li>
+            <li><a href="{{ url_for('shoes') }}">Обувь</a></li>
+            <div class="auth">
+                {% if not session.get('logged_in') %}
+                    <a href="{{ url_for('login') }}">Войти</a>
+                {% else %}
+                    <a href="{{ url_for('logout') }}">Выйти</a>
+                {% endif %}
+            </div>
+        </ul>
+    </nav>
+
+    <main>
+        {% block content %}
+        <h2>Добро пожаловать в наш интернет-магазин!</h2>
+        <div class="main-image">
+            <img src="{{ url_for('static', filename='images/head.jpeg') }}" alt="Главное изображение" style="max-width:
+         100%; height: auto; border-radius: 8px;">
+
+        </div>
+
+        <p>Здесь вы найдете лучшие товары по лучшим ценам!</p>
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Интернет-магазин. Все права защищены.</p>
+    </footer>
+</body>
+</html>
