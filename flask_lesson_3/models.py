@@ -13,6 +13,7 @@ def get_local_time():
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    password = db.Column(db.String(6), unique=True, nullable=False)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     created_at = db.Column(db.DateTime, default=get_local_time)
