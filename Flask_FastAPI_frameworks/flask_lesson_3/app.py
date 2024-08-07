@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect, url_for, flash
 import sqlite3
-from bcrypt import hashpw, gensalt, checkpw
-from datetime import datetime
+from bcrypt import hashpw, gensalt
+
 
 app = Flask(__name__)
 app.secret_key = "supersecretkey"  # Нужно для использования flash-сообщений
