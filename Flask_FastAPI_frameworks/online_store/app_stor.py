@@ -14,7 +14,7 @@ app_store.secret_key = "supersecretkey"  # Секретный ключ для с
 
 @app_store.route("/")
 def index():
-    return render_template("base.html")
+    return render_template("index.html")
 
 
 @app_store.route("/clothing")
