@@ -17,5 +17,4 @@ async def download_async(urls):
     async with aiohttp.ClientSession() as session:
         tasks = [async_download_file(session, url) for url in urls]
         await asyncio.gather(*tasks)
-    print(f"Загружено {url} за {time.time() - start_time:.2f} секунд")
-    # print(f"Общее время выполнения (асинхронно): {time.time() - start_time:.2f} секунд")
+    print(f"Общее время выполнения (асинхронно): {time.time() - start_time:.2f} секунд")

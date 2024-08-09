@@ -13,4 +13,6 @@ def download_file(url, content):
 async def async_download_file(session, url):
     async with session.get(url) as response:
         content = await response.read()
+        start_time = time.time()
         download_file(url, content)
+        print(f"Загружено {url} за {time.time() - start_time:.2f} секунд")
