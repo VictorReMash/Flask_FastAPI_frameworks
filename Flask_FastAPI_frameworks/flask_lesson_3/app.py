@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = (
-    "b0081589c8c2c14b449121d0afd260acdecbe09d77fcc288"  # Замените на сгенерированный секретный ключ
+    "74b34a11c22aa0df7f4c640332631d0c7eeabb46ee298907"  # Замените на сгенерированный секретный ключ
 )
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
