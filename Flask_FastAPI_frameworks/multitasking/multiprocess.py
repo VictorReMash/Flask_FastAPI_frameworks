@@ -1,17 +1,18 @@
 from multiprocessing import Process
 import time
-from download import download_sync
+from download import download
 from parser import parsing_cmd
+from utils import print_stop_time
 
 
 def multiprocessing_download(urls):
     start_time = time.time()
-    processes = [Process(target=download_sync, args=(url,)) for url in urls]
+    processes = [Process(target=download, args=(url,)) for url in urls]
     for process in processes:
         process.start()
     for process in processes:
         process.join()
-    print(f"Общее время выполнения (процессы): {time.time() - start_time:.2f} секунд")
+    print_stop_time(time.time() - start_time)
 
 
 if __name__ == "__main__":

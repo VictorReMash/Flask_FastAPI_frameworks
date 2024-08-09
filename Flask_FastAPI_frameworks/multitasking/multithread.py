@@ -1,17 +1,18 @@
 import threading
 import time
-from download import download_sync
+from download import download
 from parser import parsing_cmd
+from utils import print_stop_time
 
 
 def multithreaded_download(urls):
     start_time = time.time()
-    threads = [threading.Thread(target=download_sync, args=(url,)) for url in urls]
+    threads = [threading.Thread(target=download, args=(url,)) for url in urls]
     for thread in threads:
         thread.start()
     for thread in threads:
         thread.join()
-    print(f"Общее время выполнения (потоки): {time.time() - start_time:.2f} секунд")
+    print_stop_time(time.time() - start_time)
 
 
 if __name__ == "__main__":

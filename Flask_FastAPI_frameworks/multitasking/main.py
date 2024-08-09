@@ -1,8 +1,10 @@
 import argparse
 import asyncio
-from download import download_async, download_sync
+import time
+from download import download_async, download
 from multithread import multithreaded_download
 from multiprocess import multiprocessing_download
+from utils import print_start_time, print_stop_time
 
 
 def main():
@@ -23,13 +25,19 @@ def main():
     args = parser.parse_args()
 
     if args.method == "sync":
+        print_start_time(args.method)
+        start_time = time.time()
         for url in args.urls:
-            download_sync(url)
+            download(url)
+        print_stop_time(time)
     elif args.method == "threads":
+        print_start_time(args.method)
         multithreaded_download(args.urls)
     elif args.method == "processes":
+        print_start_time(args.method)
         multiprocessing_download(args.urls)
     elif args.method == "async":
+        print_start_time(args.method)
         asyncio.run(download_async(args.urls))
 
 
