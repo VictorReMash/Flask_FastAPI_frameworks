@@ -34,12 +34,24 @@ def register():
         # Проверка длины пароля
         if len(password) < 6:
             flash("Пароль должен содержать не менее 6 символов.", "danger")
-            return redirect(url_for("register"))
+            return render_template(
+                "register.html",
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+            )
+            # return redirect(url_for("register"))
 
         # Проверка совпадения паролей
         if password != confirm_password:
             flash("Пароли не совпадают.", "danger")
-            return redirect(url_for("register"))
+            return render_template(
+                "register.html",
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+            )
+            # return redirect(url_for("register"))
 
         # Хеширование пароля
         hashed_password = generate_password_hash(password, method="pbkdf2:sha256")
