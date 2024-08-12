@@ -23,12 +23,13 @@ async def read_root():
     return {"Hello": "World"}
 
 
-@app.get("/items/{item_id}")
-async def read_item(item_id: int, q: str = None):
+@app.get("/items/")
+async def read_item(skip: int = 0, limit: int = 10):
     logger.info("Отработал POST запрос.")
-    if q:
-        return {"item_id": item_id, "q": q}
-    return {"item_id": item_id}
+    return {"skip": skip, "limit": limit}
+    # if q:
+    #     return {"item_id": item_id, "q": q}
+    # return {"item_id": item_id}
 
 
 @app.get("/users/{user_id}/orders/{order_id}")
