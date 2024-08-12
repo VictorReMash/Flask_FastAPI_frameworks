@@ -1,6 +1,10 @@
+import logging
 from fastapi import FastAPI, HTTPException
 from typing import List
 from models import Task, TaskCreate
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
@@ -12,6 +16,7 @@ task_id_counter = 1
 
 @app.get("/tasks", response_model=List[Task])
 def get_tasks():
+    logger.info("Отработал GET запрос по всем существующим задачам.")
     return list(tasks.values())
 
 
@@ -19,6 +24,7 @@ def get_tasks():
 def get_task(id: int):
     if id not in tasks:
         raise HTTPException(status_code=404, detail="Task not found")
+    logger.info("Отработал GET запрос отбора задачи по id.")
     return tasks[id]
 
 
@@ -34,6 +40,7 @@ def create_task(task: TaskCreate):
     )
     tasks[task_id_counter] = task_with_id
     task_id_counter += 1
+    logger.info("Отработал POST запрос по созданию задачи.")
     return tasks[task_with_id.id]
 
 
@@ -48,6 +55,7 @@ def update_task(id: int, updated_task: TaskCreate):
         description=updated_task.description,
         is_completed=updated_task.is_completed,
     )
+    logger.info("Отработал PUT запрос по изменению задачи.")
     tasks[id] = updated_task_with_id
     return tasks[id]
 
@@ -57,4 +65,5 @@ def delete_task(id: int):
     if id not in tasks:
         raise HTTPException(status_code=404, detail="Task not found")
     del tasks[id]
+    logger.info("Отработал DELETE запрос по удалению задачи.")
     return {"message": "Task deleted successfully"}
