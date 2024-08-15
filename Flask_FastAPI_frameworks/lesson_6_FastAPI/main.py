@@ -23,16 +23,21 @@ metadata.create_all(engine)
 
 @app.post("/users", response_model=sch.UserBase)
 async def create_user(user: sch.UserCreate):
-    user_id = await crud.create_user(user.model_dump())
+    user = await crud.create_user(user.model_dump())
     return {**user.model_dump(), "id": user_id}
 
 
-@app.get("/users/{id}", response_model=sch.UserBase)
+@app.get("/user/{id}", response_model=sch.UserBase)
 async def read_user(user_id: int):
     user = await crud.get_user(user_id)
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return user
+
+
+@app.get("/users", response_model=sch.UserBase)
+async def read_users():
+    return await crud.get_all_users()
 
 
 if __name__ == "__main__":
