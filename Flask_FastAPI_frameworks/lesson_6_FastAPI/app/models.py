@@ -33,3 +33,4 @@ orders = Table(
     Column("order_date", DateTime, default=lambda: dt.datetime.now(dt.timezone.utc)),
     Column("status", String(32)),
 )
+database_table_models
