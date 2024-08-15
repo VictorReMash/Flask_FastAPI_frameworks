@@ -35,6 +35,13 @@ class UserRead(UserBase):
         from_attributes = True
 
 
+class UserUpdate(BaseModel):
+    first_name: Optional[str] = None
+    surname: Optional[str] = None
+    email: Optional[str] = None
+    password: Optional[str] = None
+
+
 # Модели для товаров
 class ProductBase(BaseModel):
     name: str
