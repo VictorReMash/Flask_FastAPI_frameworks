@@ -1,6 +1,7 @@
 from sqlalchemy import insert, select, update, delete
 from .db import database
 from .models import users, products, orders
+import bcrypt
 
 
 # CRUD для пользователей

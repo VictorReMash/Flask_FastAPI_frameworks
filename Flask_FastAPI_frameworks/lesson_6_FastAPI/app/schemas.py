@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional
 import datetime as dt
+import bcrypt
 
 
 # Модели для пользователей
