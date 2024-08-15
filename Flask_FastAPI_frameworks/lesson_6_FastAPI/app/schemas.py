@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr, field_validator
 from typing import Optional
 import datetime as dt
 import bcrypt
@@ -6,13 +6,26 @@ import bcrypt
 
 # Модели для пользователей
 class UserBase(BaseModel):
+    id: int
     first_name: str
     surname: str
     email: str
 
+    class Config:
+        from_attributes = True
 
-class UserCreate(UserBase):
+
+class UserCreate(BaseModel):
+    first_name: str
+    surname: str
+    email: EmailStr  # Используем EmailStr для валидации email
     password: str
+
+    @field_validator("first_name", "surname", "email", "password")
+    def no_empty_fields(cls, value):
+        if not value or not value.strip():
+            raise ValueError(f"Field cannot be empty or blank")
+        return value
 
 
 class UserRead(UserBase):
