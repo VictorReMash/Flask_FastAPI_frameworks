@@ -1,5 +1,5 @@
 import datetime as dt
-from sqlalchemy import Table, Column, Integer, String, ForeignKey, DateTime
+from sqlalchemy import Table, Column, Integer, String, ForeignKey, DateTime, Float
 from .db import metadata
 
 # Определение таблицы пользователи
@@ -20,7 +20,7 @@ products = Table(
     Column("id", Integer, primary_key=True),
     Column("name", String(128)),
     Column("description", String(256)),
-    Column("price", Integer),
+    Column("price", Float),
 )
 
 # Определение таблицы заказы покупателей
