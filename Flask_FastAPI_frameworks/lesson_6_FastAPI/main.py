@@ -21,7 +21,7 @@ metadata.create_all(engine)
 
 
 # *** БЛОК чтения записей БД по id
-@app.get("/user/{id}", response_model=sch.UserBase)
+@app.get("/users/{id}", response_model=sch.UserBase)
 async def read_user(user_id: int):
     user = await crud.get_user(user_id)
     if user is None:
@@ -29,7 +29,7 @@ async def read_user(user_id: int):
     return user
 
 
-@app.get("/product/{id}", response_model=sch.ProductRead)
+@app.get("/products/{id}", response_model=sch.ProductRead)
 async def read_product(product_id: int):
     product = await crud.get_product(product_id)
     if product is None:
@@ -53,19 +53,19 @@ async def read_users():
 
 
 # *** БЛОК создания записей в БД
-@app.post("/user", response_model=sch.UserBase)
+@app.post("/users", response_model=sch.UserBase)
 async def create_user(user: sch.UserCreate):
     user_id = await crud.create_user(user.model_dump())
     return {**user.model_dump(), "id": user_id}
 
 
-@app.post("/product", response_model=sch.ProductBase)
+@app.post("/products", response_model=sch.ProductBase)
 async def create_product(product: sch.ProductBase):
     product_id = await crud.create_product(product.model_dump())
     return {**product.model_dump(), "id": product_id}
 
 
-@app.post("/order", response_model=sch.Order)
+@app.post("/orders", response_model=sch.Order)
 async def create_product(order: sch.OrderCreate):
     order_id = await crud.create_order(order.model_dump())
     return {**order.model_dump(), "id": order_id}
