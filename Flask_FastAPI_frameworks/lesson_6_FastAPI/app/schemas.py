@@ -3,7 +3,6 @@ from typing import Optional
 import datetime as dt
 
 
-
 # Модели для пользователей
 class UserBase(BaseModel):
     id: int
@@ -49,15 +48,17 @@ class ProductBase(BaseModel):
     price: float
 
 
-class ProductCreate(ProductBase):
-    pass
-
-
 class ProductRead(ProductBase):
     id: int
 
     class Config:
         from_attributes = True
+
+
+class ProductUpdate(BaseModel):
+    name: Optional[str] = None
+    description: Optional[str] = None
+    price: Optional[float] = None
 
 
 # Модели для заказов
@@ -70,6 +71,10 @@ class OrderBase(BaseModel):
 
 class OrderCreate(OrderBase):
     pass
+
+
+class Order(OrderBase):
+    id: int
 
 
 class OrderRead(OrderBase):
