@@ -3,7 +3,6 @@ from typing import Optional
 import datetime as dt
 
 
-
 # Модели для пользователей
 class UserBase(BaseModel):
     id: int
