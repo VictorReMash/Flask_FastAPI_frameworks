@@ -72,7 +72,7 @@ async def create_product(order: sch.OrderCreate):
 
 
 # *** БЛОК обновления записей в БД
-@app.put("/user/{user_id}", response_model=sch.UserBase)
+@app.put("/users/{user_id}", response_model=sch.UserBase)
 async def update_user(user_id: int, user: sch.UserUpdate):
     # Преобразование Pydantic модели в словарь, удаление ключей со значением None
     user_data = user.model_dump(exclude_unset=True)
@@ -92,7 +92,7 @@ async def update_user(user_id: int, user: sch.UserUpdate):
     return updated_user
 
 
-@app.put("/product/{product_id}", response_model=sch.ProductBase)
+@app.put("/products/{product_id}", response_model=sch.ProductBase)
 async def update_product(product_id: int, product: sch.ProductUpdate):
     existing_product = await crud.get_product(product_id)
     if not existing_product:
@@ -114,7 +114,7 @@ async def update_order(order_id: int, order: sch.OrderCreate):
 
 
 # *** БЛОК удаления записей в таблице USERS
-@app.delete("/user/{user_id}")
+@app.delete("/users/{user_id}")
 async def delete_user(user_id: int):
     # Проверка существования пользователя
     existing_user = await crud.get_user(user_id)
@@ -123,6 +123,26 @@ async def delete_user(user_id: int):
 
     await crud.delete_user(user_id)
     return {"detail": "User deleted successfully"}
+
+
+@app.delete("/products/{product_id}")
+async def delete_order(product_id: int):
+    existing_product = await crud.get_product(product_id)
+    if not existing_product:
+        raise HTTPException(status_code=404, detail="Product not found")
+
+    await crud.delete_product(product_id)
+    return {"detail": "Product deleted successfully"}
+
+
+@app.delete("/orders/{order_id}")
+async def delete_order(order_id: int):
+    existing_order = await crud.get_order(order_id)
+    if not existing_order:
+        raise HTTPException(status_code=404, detail="Order not found")
+
+    await crud.delete_order(order_id)
+    return {"detail": "Order deleted successfully"}
 
 
 if __name__ == "__main__":

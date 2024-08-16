@@ -66,6 +66,11 @@ async def update_product(product_id: int, product_data):
     return await get_product(product_id)
 
 
+async def delete_product(product_id: int):
+    query = delete(products).where(products.c.id == product_id)
+    await database.execute(query)
+
+
 # CRUD для заказов
 async def get_order(order_id: int):
     query = select(orders).where(orders.c.id == order_id)
@@ -94,3 +99,8 @@ async def update_order(order_id: int, order_data):
     query = update(orders).where(products.c.id == order_id).values(**order_data)
     await database.execute(query)
     return await get_order(order_id)
+
+
+async def delete_order(order_id: int):
+    query = delete(orders).where(orders.c.id == order_id)
+    await database.execute(query)
