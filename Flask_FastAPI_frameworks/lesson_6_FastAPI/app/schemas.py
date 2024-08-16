@@ -1,7 +1,7 @@
 from pydantic import BaseModel, EmailStr, field_validator
 from typing import Optional
 import datetime as dt
-import bcrypt
+
 
 
 # Модели для пользователей
