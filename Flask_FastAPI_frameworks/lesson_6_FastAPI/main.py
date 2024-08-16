@@ -43,7 +43,7 @@ async def read_users():
 @app.put("/users/{user_id}", response_model=sch.UserBase)
 async def update_user(user_id: int, user: sch.UserUpdate):
     # Преобразование Pydantic модели в словарь, удаление ключей со значением None
-    user_data = user.dict(exclude_unset=True)
+    user_data = user.model_dump(exclude_unset=True)
 
     # Проверка существования пользователя
     existing_user = await crud.get_user(user_id)
