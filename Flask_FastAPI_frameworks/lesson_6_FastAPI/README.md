@@ -44,14 +44,16 @@
    ```bash
    git clone https://github.com/VictorReMash/Flask_FastAPI_frameworks.git
    cd lesson_6_FastAPI
+   
+2. **Установите зависимости:**
+   ```bash
+   pip install -r requirements.txt
 
-2. **Для запуска приложения используйте команду:**
+3. **Для запуска приложения используйте команду:**
    ```bash
    uvicorn main:app --host 127.0.0.1 --port 8000
    
-3. **Установите зависимости:**
-   ```bash
-   pip install -r requirements.txt
+
    
 ## Документация
 
