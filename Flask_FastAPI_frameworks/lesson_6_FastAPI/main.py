@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Path
+from fastapi import FastAPI, HTTPException
 from contextlib import asynccontextmanager
 from app import crud
 from app.db import database, engine, metadata
