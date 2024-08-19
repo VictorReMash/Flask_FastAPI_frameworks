@@ -2,7 +2,7 @@ from sqlalchemy import insert, select, update, delete
 from .db import database
 from .models import users, products, orders
 from fastapi import HTTPException
-import bcrypt
+from .utils import hash_password
 
 
 # CRUD для пользователей
@@ -15,12 +15,7 @@ async def create_user(user_data):
         raise HTTPException(status_code=400, detail="Email already in use")
 
     # Хэшируем пароль перед сохранением
-    hashed_password = bcrypt.hashpw(
-        user_data["password"].encode("utf-8"), bcrypt.gensalt()
-    )
-    user_data["password"] = hashed_password.decode(
-        "utf-8"
-    )  # Преобразуем обратно в строку для хранения
+    user_data["password"] = hash_password(user_data["password"])
 
     # Если email уникален, создаем нового пользователя
     query = insert(users).values(**user_data)
