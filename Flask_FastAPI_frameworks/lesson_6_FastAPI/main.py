@@ -1,11 +1,10 @@
-from fastapi import FastAPI, HTTPException, Path
+from fastapi import FastAPI, HTTPException
 from contextlib import asynccontextmanager
 from app import crud
 from app.db import database, engine, metadata
 import app.schemas as sch
 import uvicorn
 from typing import List
-import bcrypt
 
 
 @asynccontextmanager
@@ -81,12 +80,6 @@ async def update_user(user_id: int, user: sch.UserUpdate):
     existing_user = await crud.get_user(user_id)
     if not existing_user:
         raise HTTPException(status_code=404, detail="User not found")
-
-    # Хэш нового пароля, если он был предоставлен
-    if "password" in user_data:
-        user_data["password"] = bcrypt.hashpw(
-            user_data["password"].encode("utf-8"), bcrypt.gensalt()
-        ).decode("utf-8")
 
     updated_user = await crud.update_user(user_id, user_data)
     return updated_user

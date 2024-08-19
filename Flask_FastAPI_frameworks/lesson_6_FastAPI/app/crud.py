@@ -34,7 +34,19 @@ async def get_user(user_id: int):
 
 
 async def update_user(user_id: int, user_data):
+
+    query_email = select(users).where(
+        users.c.email == user_data["email"], users.c.id != user_id
+    )
+    existing_user = await database.fetch_one(query_email)
+
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Email already in use")
+
     query = update(users).where(users.c.id == user_id).values(**user_data)
+
+    user_data["password"] = hash_password(user_data["password"])
+
     await database.execute(query)
     return await get_user(user_id)
 
